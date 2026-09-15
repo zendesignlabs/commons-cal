@@ -1,0 +1,26 @@
+[
+  {
+    "id": "community",
+    "name": "Community Calendar",
+    "description": "Our meetings, shared plans, and space to connect.",
+    "organizerTokenEnv": "ORGANIZER_TOKEN",
+    "faq": [],
+    "radicale": {
+      "url": "http://radicale:5232/community/events/",
+      "username": "community",
+      "passwordEnv": "RADICALE_PASSWORD"
+    }
+  },
+  {
+    "id": "garden",
+    "name": "Community Garden",
+    "description": "Growing things together.",
+    "organizerTokenEnv": "GARDEN_ORGANIZER_TOKEN",
+    "faq": [],
+    "radicale": {
+      "url": "http://radicale:5232/garden/events/",
+      "username": "garden",
+      "passwordEnv": "GARDEN_RADICALE_PASSWORD"
+    }
+  }
+]

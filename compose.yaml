@@ -1,0 +1,54 @@
+services:
+  commons:
+    build: .
+    restart: unless-stopped
+    init: true
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4010
+      CALENDAR_DATA_DIR: /data
+    ports:
+      - "127.0.0.1:${PORT:-4010}:4010"
+    depends_on:
+      radicale:
+        condition: service_healthy
+    volumes:
+      - commons_metadata:/data
+      - ./config:/config:ro
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 384m
+    logging:
+      driver: json-file
+      options: {max-size: "5m", max-file: "2"}
+  radicale:
+    build: ./deploy/radicale
+    restart: unless-stopped
+    init: true
+    environment:
+      RADICALE_ACCOUNT_USERNAME: ${SIGNUP_RADICALE_USERNAME:-commons-workspaces}
+      RADICALE_ACCOUNT_PASSWORD: ${SIGNUP_RADICALE_PASSWORD:?Set SIGNUP_RADICALE_PASSWORD in .env}
+    volumes:
+      - radicale_data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('127.0.0.1', 5232), timeout=2).close()"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: json-file
+      options: {max-size: "5m", max-file: "2"}
+volumes:
+  commons_metadata:
+  radicale_data:
