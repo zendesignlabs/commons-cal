@@ -15,7 +15,7 @@ export function WorkspaceShell({ sidebar, children, title = 'Commons workspace',
     media.addEventListener('change', changed);
     return () => { document.body.style.overflow = previous; media.removeEventListener('change', changed); trigger.current?.focus(); };
   }, [open]);
-  const brand = <a className="brand" href={brandHref}><CalendarDays size={26} aria-hidden="true" /><span>commons</span></a>;
+  const brand = <a className="brand" href={brandHref}><CalendarDays size={26} aria-hidden="true" /><span className="commons-wordmark">commons</span></a>;
   const content = <>{brand}{sidebar}</>;
   return <div className="workspace-shell"><a className="skip-link" href="#main">Skip to content</a><aside className="workspace-sidebar" aria-label="Workspace navigation">{content}</aside><header className="workspace-mobile-header"><Button ref={trigger} icon={Menu} aria-expanded={open} aria-controls="workspace-drawer" onClick={() => setOpen(true)}>Menu</Button><span>{title}</span></header><div className="workspace-body">{children}</div>{open && <dialog ref={dialog} id="workspace-drawer" className="workspace-drawer" aria-label="Workspace navigation" onCancel={e => { e.preventDefault(); setOpen(false); }} onClick={e => { if (e.target === dialog.current || e.target.closest('a,[data-close-nav]')) setOpen(false); }}><div className="drawer-heading">{brand}<Button icon={X} aria-label="Close navigation" onClick={() => setOpen(false)} /></div>{sidebar}</dialog>}</div>;
 }
