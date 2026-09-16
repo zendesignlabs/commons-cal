@@ -14,6 +14,14 @@ Commons is designed for a small community server. It uses private organizer link
 instead of user accounts. **Events, descriptions, meeting links, agenda links, and
 FAQs are public.** Only share information suitable for a public calendar.
 
+## Watch the tour
+
+[![Watch the Commons Cal tour](docs/images/commons-tour.png)](https://cubo.queer.tech/8c36b7a8-commons-cal-tour.mp4)
+
+[Watch the 2½-minute video](https://cubo.queer.tech/8c36b7a8-commons-cal-tour.mp4)
+for a walkthrough of creating a workspace, organizing events, sharing calendars,
+and subscribing with your own calendar app.
+
 ## Try it locally
 
 Install Node.js 22.12 or newer, then:
